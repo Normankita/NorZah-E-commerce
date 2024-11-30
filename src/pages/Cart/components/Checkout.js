@@ -18,15 +18,38 @@ export const Checkout = ({setCheck}
     },[])
 
     const {total,clearCart, cartList} = useCart()
-
+    function generateRandomString(length) {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        let result = '';
+    
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            result += characters[randomIndex];
+        }
+    
+        return result;
+    }
+    function generateRandomNumber(length) {
+        let result = '';
+    
+        for (let i = 0; i < length; i++) {
+            const randomDigit = Math.floor(Math.random() * 10); // Generate a random digit from 0 to 9
+            result += randomDigit;
+        }
+    
+        return result;
+    }
+    
     const navigate = useNavigate()
     async function handleCheckout (event){
         event.preventDefault()
+        const paymentID=`${generateRandomString(3)}_${generateRandomNumber(9)}`
         const useData = {
             name : event.target.name.value,
             email: event.target.email.value,
             userID: user.id,
             total:total,
+            paymentID:paymentID,
             Cart:cartList,
         }
 
